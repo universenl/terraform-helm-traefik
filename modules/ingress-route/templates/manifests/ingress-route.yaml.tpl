@@ -10,27 +10,32 @@ metadata:
 spec:
   entryPoints:
     ${indent(4, yamlencode(spec.entry_points))}
-  routes:
-    - kind: Rule
-      match: Host(${join(",", formatlist("`%s`", spec.routes.match.hosts))})
-%{~ if length(spec.routes.match.paths) > 0 || length(spec.routes.match.path_prefixes) > 0 ~}
+
+
+%{ if length(spec.routes) > 0 ~}
+      routes:
+%{ for route in spec.routes ~}
+        - kind: Rule
+          match: Host(${join(",", formatlist("`%s`", route.match.hosts))})
+%{~ if length(route.match.paths) > 0 || length(route.match.path_prefixes) > 0 ~}
  &&
-%{~ if length(spec.routes.match.paths) > 0 && length(spec.routes.match.path_prefixes) > 0 ~}
+%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
  (
 %{~ endif}
-%{~ if length(spec.routes.match.paths) > 0 ~}
- Path(${join(",", formatlist("`%s`", spec.routes.match.paths))})
+%{~ if length(route.match.paths) > 0 ~}
+ Path(${join(",", formatlist("`%s`", route.match.paths))})
 %{~ endif ~}
-%{~ if length(spec.routes.match.paths) > 0 && length(spec.routes.match.path_prefixes) > 0 ~}
+%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
  ||
 %{~ endif ~}
-%{~ if length(spec.routes.match.path_prefixes) > 0 ~}
- PathPrefix(${join(",", formatlist("`%s`", spec.routes.match.path_prefixes))})
+%{~ if length(route.match.path_prefixes) > 0 ~}
+ PathPrefix(${join(",", formatlist("`%s`", route.match.path_prefixes))})
 %{~ endif ~}
-%{~ if length(spec.routes.match.paths) > 0 && length(spec.routes.match.path_prefixes) > 0 ~}
+%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
  )
 %{~ endif }
 %{~ endif }
+
 %{ if length(spec.routes.middlewares) > 0 ~}
       middlewares:
 %{ for middleware in spec.routes.middlewares ~}
@@ -48,5 +53,8 @@ spec:
             cookie:
               name: lb_${spec.routes.service.name}
 %{ endif ~}
+
+%{ endfor ~}
+
   tls:
     certResolver: ${spec.tls.cert_resolver}
