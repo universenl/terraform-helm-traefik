@@ -49,4 +49,4 @@ spec:
               name: lb_${spec.routes.service.name}
 %{ endif ~}
   tls:
-    secretName: ${spec.tls.secret_name}
+    certResolver: ${spec.tls.cert_resolver}
