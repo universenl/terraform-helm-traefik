@@ -20,9 +20,9 @@ spec:
         version: ${spec.routes.service.proxy_protocol.version}
 %{ endif ~}
 %{ if length(spec.routes.middlewares) > 0 ~}
-      middlewares:
+    middlewares:
 %{ for middleware in spec.routes.middlewares ~}
-        - name: ${middleware}
+    - name: ${middleware}
 %{ endfor ~}
 %{ endif ~}
 %{ if try(spec.tls.enabled, false) ~}
