@@ -19,6 +19,12 @@ spec:
       proxyProtocol:
         version: ${spec.routes.service.proxy_protocol.version}
 %{ endif ~}
+%{ if length(spec.routes.middlewares) > 0 ~}
+      middlewares:
+%{ for middleware in spec.routes.middlewares ~}
+        - name: ${middleware}
+%{ endfor ~}
+%{~ endif }
 %{ if try(spec.tls.enabled, false) ~}
   tls:
     certResolver: ${spec.tls.cert_resolver}
