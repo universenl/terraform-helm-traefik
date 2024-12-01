@@ -30,20 +30,23 @@ variable "spec" {
   description = "Traefik ingress route specifications"
   type = object({
     entry_points = optional(list(string), ["websecure"])
-    routes = object({
-      match = object({
-        hosts         = list(string)
-        paths         = optional(list(string), [])
-        path_prefixes = optional(list(string), [])
-      })
-      middlewares = optional(list(string), [])
-      priority    = optional(number)
-      service = object({
-        name   = string
-        port   = number
-        sticky = optional(bool, false)
-      })
-    })
+    routes       = list(map(string))
+
+
+    # routes = object({
+    #   match = object({
+    #     hosts         = list(string)
+    #     paths         = optional(list(string), [])
+    #     path_prefixes = optional(list(string), [])
+    #   })
+    #   middlewares = optional(list(string), [])
+    #   priority    = optional(number)
+    #   service = object({
+    #     name   = string
+    #     port   = number
+    #     sticky = optional(bool, false)
+    #   })
+    # })
     tls = object({
       cert_resolver = string
     })
