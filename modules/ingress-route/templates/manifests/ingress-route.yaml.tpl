@@ -16,28 +16,7 @@ spec:
       routes:
 %{ for route in spec.routes ~}
         - kind: Rule
-          match: Host(${join(",", formatlist("`%s`", route.match.hosts))})
-
-
-%{~ if length(route.match.paths) > 0 || length(route.match.path_prefixes) > 0 ~}
- &&
-%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
- (
-%{~ endif}
-%{~ if length(route.match.paths) > 0 ~}
- Path(${join(",", formatlist("`%s`", route.match.paths))})
-%{~ endif ~}
-%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
- ||
-%{~ endif ~}
-%{~ if length(route.match.path_prefixes) > 0 ~}
- PathPrefix(${join(",", formatlist("`%s`", route.match.path_prefixes))})
-%{~ endif ~}
-%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
- )
-%{~ endif }
-%{~ endif }
-
+          match: Host(${join(",", formatlist("`%s`", route.match.hosts))}) && PathPrefix(${join(",", formatlist("`%s`", route.match.path_prefixes))})
 
 %{ endfor ~}
 %{~ endif }
