@@ -15,6 +15,10 @@ spec:
 %{ for route in spec.routes ~}
     - kind: Rule
       match: Host(${join(",", formatlist("`%s`", route.match.hosts))}) && PathPrefix(${join(",", formatlist("`%s`", route.match.pathPrefix))})
+      services:
+        - name: ${route.service.name}
+          port: ${route.service.port}
+
 %{ endfor ~}
 %{~ endif }
   tls:
