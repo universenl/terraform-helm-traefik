@@ -19,21 +19,21 @@ spec:
           match: Host(${join(",", formatlist("`%s`", route.match.hosts))})
 
 
-%{~ if length(spec.routes.match.paths) > 0 || length(spec.routes.match.path_prefixes) > 0 ~}
+%{~ if length(route.match.paths) > 0 || length(route.match.path_prefixes) > 0 ~}
  &&
-%{~ if length(spec.routes.match.paths) > 0 && length(spec.routes.match.path_prefixes) > 0 ~}
+%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
  (
 %{~ endif}
-%{~ if length(spec.routes.match.paths) > 0 ~}
- Path(${join(",", formatlist("`%s`", spec.routes.match.paths))})
+%{~ if length(route.match.paths) > 0 ~}
+ Path(${join(",", formatlist("`%s`", route.match.paths))})
 %{~ endif ~}
-%{~ if length(spec.routes.match.paths) > 0 && length(spec.routes.match.path_prefixes) > 0 ~}
+%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
  ||
 %{~ endif ~}
-%{~ if length(spec.routes.match.path_prefixes) > 0 ~}
- PathPrefix(${join(",", formatlist("`%s`", spec.routes.match.path_prefixes))})
+%{~ if length(route.match.path_prefixes) > 0 ~}
+ PathPrefix(${join(",", formatlist("`%s`", route.match.path_prefixes))})
 %{~ endif ~}
-%{~ if length(spec.routes.match.paths) > 0 && length(spec.routes.match.path_prefixes) > 0 ~}
+%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
  )
 %{~ endif }
 %{~ endif }
