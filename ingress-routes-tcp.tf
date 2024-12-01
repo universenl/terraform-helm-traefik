@@ -34,29 +34,6 @@ module "ingress_routes_tcp" {
       middlewares = each.value.custom_middlewares
     }
 
-    routes = merge(
-      { for k, v in each.value : k => v if !contains(["tls", "metadata"], k) },
-      {
-        middlewares = concat(
-          each.value.redirects.from_non_www_to_www ? ["from-non-www-to-www-redirect"] : [],
-          each.value.redirects.from_www_to_non_www ? ["from-www-to-non-www-redirect"] : [],
-          [for name, regex in each.value.redirects.regex : "${name}-redirect"],
-          compact([
-            for name, values in nonsensitive(var.middlewares_basic_auth) :
-            (contains(values.ingress_routes, each.key) ? "${name}-basic-auth" : null)
-          ]),
-          compact([
-            for name, values in var.middlewares.custom :
-            (contains(values.ingress_routes, each.key) ? "${name}-custom" : null)
-          ]),
-          compact([
-            for name, values in var.middlewares.strip_prefix :
-            (contains(values.ingress_routes, each.key) ? "${name}-strip-prefix" : null)
-          ]),
-          each.value.custom_middlewares
-        )
-      }
-    )
     tls = each.value.tls
   }
 
