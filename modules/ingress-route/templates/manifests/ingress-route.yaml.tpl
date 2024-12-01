@@ -15,6 +15,8 @@ spec:
 %{ if length(spec.routes) > 0 ~}
       routes:
 %{ for route in spec.routes ~}
+
+
         - kind: Rule
           match: Host(${join(",", formatlist("`%s`", route.match.hosts))})
 %{~ if length(route.match.paths) > 0 || length(route.match.path_prefixes) > 0 ~}
@@ -33,7 +35,6 @@ spec:
 %{~ endif ~}
 %{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
  )
-%{~ endif }
 %{~ endif }
 
 %{ if length(spec.routes.middlewares) > 0 ~}
@@ -54,7 +55,9 @@ spec:
               name: lb_${spec.routes.service.name}
 %{ endif ~}
 
+
 %{ endfor ~}
+%{~ endif }
 
   tls:
     certResolver: ${spec.tls.cert_resolver}
