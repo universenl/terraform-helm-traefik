@@ -41,8 +41,8 @@ variable "spec" {
       })
     })
     tls = optional(object({
-      enabled     = optional(bool, false)
-      secret_name = string
+      enabled       = optional(bool, false)
+      cert_resolver = string
     }))
   })
 }

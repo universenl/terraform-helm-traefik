@@ -86,7 +86,7 @@ variable "ingress_routes" {
       sticky = optional(bool, false)
     })
     tls = object({
-      secret_name = string
+      cert_resolver = string
     })
   }))
 
@@ -117,8 +117,8 @@ variable "ingress_routes_tcp" {
       }))
     })
     tls = optional(object({
-      enabled     = optional(bool, false)
-      secret_name = string
+      enabled       = optional(bool, false)
+      cert_resolver = string
     }))
   }))
 }

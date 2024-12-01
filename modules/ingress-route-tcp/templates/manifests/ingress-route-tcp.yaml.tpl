@@ -21,5 +21,5 @@ spec:
 %{ endif ~}
 %{ if try(spec.tls.enabled, false) ~}
   tls:
-    secretName: ${spec.tls.secret_name}
+    certResolver: ${spec.tls.cert_resolver}
 %{ endif ~}
