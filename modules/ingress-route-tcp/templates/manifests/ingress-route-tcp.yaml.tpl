@@ -21,10 +21,10 @@ spec:
 %{ endif ~}
 %{ if length(spec.routes.middlewares) > 0 ~}
       middlewares:
-%{ for middelware in spec.routes.middlewares ~}
+%{ for middleware in spec.routes.middlewares ~}
         - name: ${middleware}
 %{ endfor ~}
-%{~ endif }
+%{ endif ~}
 %{ if try(spec.tls.enabled, false) ~}
   tls:
     certResolver: ${spec.tls.cert_resolver}
