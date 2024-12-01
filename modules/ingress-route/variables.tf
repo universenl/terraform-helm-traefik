@@ -30,7 +30,7 @@ variable "spec" {
   description = "Traefik ingress route specifications"
   type = object({
     entry_points = optional(list(string), ["websecure"])
-    routes       = list(map(string))
+    routes       = map(any)
 
 
     # routes = object({
