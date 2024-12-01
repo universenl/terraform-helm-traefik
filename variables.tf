@@ -100,7 +100,7 @@ variable "ingress_routes_tcp" {
   default     = {}
   description = "Map of ingress routes TCP"
   type = map(object({
-    custom_middlewares = optional(list(string), []) # Middlewares not managed by this module
+    middlewares = optional(list(string), []) # Middlewares not managed by this module
     entry_point = object({
       name = string
       port = number
