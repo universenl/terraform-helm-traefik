@@ -40,6 +40,7 @@ variable "spec" {
         }))
       })
     })
+    middlewares = optional(list(string), [])
     tls = optional(object({
       enabled       = optional(bool, false)
       cert_resolver = string
