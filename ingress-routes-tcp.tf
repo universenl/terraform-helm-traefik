@@ -31,7 +31,7 @@ module "ingress_routes_tcp" {
     entry_points = [each.value.entry_point.name]
     routes = {
       service     = each.value.service
-      middlewares = each.value.custom_middlewares
+      middlewares = each.value.middlewares
     }
 
     tls = each.value.tls
