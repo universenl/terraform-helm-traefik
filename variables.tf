@@ -117,7 +117,6 @@ variable "ingress_routes_tcp" {
         version = optional(number, 2)
       }))
     })
-
     tls = optional(object({
       enabled       = optional(bool, false)
       cert_resolver = string
