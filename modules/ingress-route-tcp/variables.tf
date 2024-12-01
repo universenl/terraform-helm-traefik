@@ -39,8 +39,8 @@ variable "spec" {
           version = optional(number, 2)
         }))
       })
+      middlewares = optional(list(string), [])
     })
-    middlewares = optional(list(string), [])
     tls = optional(object({
       enabled       = optional(bool, false)
       cert_resolver = string
