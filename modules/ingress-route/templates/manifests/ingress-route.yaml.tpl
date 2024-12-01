@@ -18,7 +18,6 @@ spec:
       services:
         - name: ${route.service.name}
           port: ${route.service.port}
-
 %{ endfor ~}
 %{~ endif }
   tls:
