@@ -16,8 +16,7 @@ spec:
       routes:
 %{ for route in spec.routes ~}
         - kind: Rule
-          match: Host(${join(",", formatlit(s"`%s`", route.match.hosts))}) && PathPrefix(${join(",", formatlist("`%s`", route.match.pathPrefix))})
-
+          match: Host(${join(",", formatlit(s"`%s`", route.match.hosts))})
 %{ endfor ~}
 %{~ endif }
 
