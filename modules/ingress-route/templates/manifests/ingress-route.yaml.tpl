@@ -10,15 +10,12 @@ metadata:
 spec:
   entryPoints:
     ${indent(4, yamlencode(spec.entry_points))}
-
-
 %{ if length(spec.routes) > 0 ~}
-      routes:
+  routes:
 %{ for route in spec.routes ~}
-        - kind: Rule
-          match: Host(${join(",", formatlist("`%s`", route.match.hosts))}) && PathPrefix(${join(",", formatlist("`%s`", route.match.pathPrefix))})
+    - kind: Rule
+      match: Host(${join(",", formatlist("`%s`", route.match.hosts))}) && PathPrefix(${join(",", formatlist("`%s`", route.match.pathPrefix))})
 %{ endfor ~}
 %{~ endif }
-
   tls:
     certResolver: ${spec.tls.cert_resolver}
