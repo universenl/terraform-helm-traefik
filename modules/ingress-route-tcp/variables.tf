@@ -30,17 +30,18 @@ variable "spec" {
   description = "Traefik ingress route TCP specifications"
   type = object({
     entry_points = list(string)
-    routes = object({
-      service = object({
-        name = string
-        port = number
-        proxy_protocol = optional(object({
-          enabled = optional(bool, false)
-          version = optional(number, 2)
-        }))
-      })
-      middlewares = optional(list(string), [])
-    })
+    routes       = list(any)
+    # routes = object({
+    #   service = object({
+    #     name = string
+    #     port = number
+    #     proxy_protocol = optional(object({
+    #       enabled = optional(bool, false)
+    #       version = optional(number, 2)
+    #     }))
+    #   })
+    #   middlewares = optional(list(string), [])
+    # })
     tls = optional(object({
       enabled       = optional(bool, false)
       cert_resolver = string

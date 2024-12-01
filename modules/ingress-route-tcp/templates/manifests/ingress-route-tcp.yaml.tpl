@@ -21,7 +21,7 @@ spec:
 %{ endif ~}
 %{ if length(spec.routes.middlewares) > 0 ~}
       middlewares:
-%{ for middleware in spec.routes.middlewares ~}
+%{ for middelware in spec.routes.middlewares ~}
         - name: ${middleware}
 %{ endfor ~}
 %{~ endif }
