@@ -23,6 +23,7 @@ spec:
 %{ for middleware in route.middlewares ~}
         - name: ${middleware}
 %{ endfor ~}
+%{~ endif }
 %{ endfor ~}
 %{~ endif }
   tls:
