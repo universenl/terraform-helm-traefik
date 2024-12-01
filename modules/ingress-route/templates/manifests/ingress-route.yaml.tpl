@@ -18,6 +18,11 @@ spec:
       services:
         - name: ${route.service.name}
           port: ${route.service.port}
+%{ if length(route.middlewares) > 0 ~}
+      middlewares:
+%{ for middleware in route.middlewares ~}
+        - name: ${middleware}
+%{ endfor ~}
 %{ endfor ~}
 %{~ endif }
   tls:
