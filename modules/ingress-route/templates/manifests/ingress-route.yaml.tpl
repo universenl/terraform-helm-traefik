@@ -15,45 +15,28 @@ spec:
 %{ if length(spec.routes) > 0 ~}
       routes:
 %{ for route in spec.routes ~}
-
-
         - kind: Rule
           match: Host(${join(",", formatlist("`%s`", route.match.hosts))})
-%{~ if length(route.match.paths) > 0 || length(route.match.path_prefixes) > 0 ~}
+
+
+%{~ if length(spec.routes.match.paths) > 0 || length(spec.routes.match.path_prefixes) > 0 ~}
  &&
-%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
+%{~ if length(spec.routes.match.paths) > 0 && length(spec.routes.match.path_prefixes) > 0 ~}
  (
 %{~ endif}
-%{~ if length(route.match.paths) > 0 ~}
- Path(${join(",", formatlist("`%s`", route.match.paths))})
+%{~ if length(spec.routes.match.paths) > 0 ~}
+ Path(${join(",", formatlist("`%s`", spec.routes.match.paths))})
 %{~ endif ~}
-%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
+%{~ if length(spec.routes.match.paths) > 0 && length(spec.routes.match.path_prefixes) > 0 ~}
  ||
 %{~ endif ~}
-%{~ if length(route.match.path_prefixes) > 0 ~}
- PathPrefix(${join(",", formatlist("`%s`", route.match.path_prefixes))})
+%{~ if length(spec.routes.match.path_prefixes) > 0 ~}
+ PathPrefix(${join(",", formatlist("`%s`", spec.routes.match.path_prefixes))})
 %{~ endif ~}
-%{~ if length(route.match.paths) > 0 && length(route.match.path_prefixes) > 0 ~}
+%{~ if length(spec.routes.match.paths) > 0 && length(spec.routes.match.path_prefixes) > 0 ~}
  )
 %{~ endif }
-
-%{ if length(spec.routes.middlewares) > 0 ~}
-      middlewares:
-%{ for middleware in spec.routes.middlewares ~}
-        - name: ${middleware}
-%{ endfor ~}
-%{ endif ~}
-%{ if spec.routes.priority != null ~}
-      priority: ${spec.routes.priority}
-%{ endif ~}
-      services:
-        - name: ${spec.routes.service.name}
-          port: ${spec.routes.service.port}
-%{ if spec.routes.service.sticky ~}
-          sticky:
-            cookie:
-              name: lb_${spec.routes.service.name}
-%{ endif ~}
+%{~ endif }
 
 
 %{ endfor ~}
