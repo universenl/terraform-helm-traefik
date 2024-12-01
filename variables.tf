@@ -194,6 +194,22 @@ variable "middlewares" {
   })
 }
 
+variable "middlewarestcp" {
+  default     = {}
+  description = "Traefik middlewares rtcp"
+  type = object({
+    custom = optional(map(object({
+      ingress_routes = set(string)
+      spec           = map(any)
+    })), {})
+    strip_prefix = optional(map(object({
+      force_slash    = optional(bool) # The resulting stripped path is not the empty string, by replacing it with / when necessary
+      ingress_routes = set(string)
+      prefixes       = set(string) # The prefixes to strip from the request URL
+    })), {})
+  })
+}
+
 variable "middlewares_basic_auth" {
   default     = {}
   description = "Traefik middlewares Basic Authentication"
