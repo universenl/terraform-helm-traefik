@@ -48,7 +48,7 @@ variable "spec" {
     #   })
     # })
     tls = object({
-      cert_resolver = string
+      secret_name = string
     })
   })
 }
