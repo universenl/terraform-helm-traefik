@@ -27,4 +27,4 @@ spec:
 %{ endfor ~}
 %{~ endif }
   tls:
-    secret_name : ${spec.tls.secret_name}
+    secretName : ${spec.tls.secret_name}

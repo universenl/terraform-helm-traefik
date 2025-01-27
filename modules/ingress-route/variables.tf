@@ -47,6 +47,7 @@ variable "spec" {
     #     sticky = optional(bool, false)
     #   })
     # })
+    
     tls = object({
       secret_name = string
     })
